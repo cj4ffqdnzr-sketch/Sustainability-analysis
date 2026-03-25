@@ -1,0 +1,314 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font-sans,"Anthropic Sans",sans-serif);}
+.page{padding:1.25rem 0 2rem;}
+.top-bar{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:1.5rem;flex-wrap:wrap;gap:.5rem;}
+.top-bar h1{font-size:17px;font-weight:500;color:var(--color-text-primary);}
+.top-bar p{font-size:12px;color:var(--color-text-secondary);}
+.cboost-tag{font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;background:#EAF3DE;color:#3B6D11;white-space:nowrap;}
+
+/* Country headers */
+.country-grid{display:grid;grid-template-columns:180px 1fr 1fr;gap:0;margin-bottom:0;}
+.col-label{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-tertiary);padding:.4rem 0;}
+.col-nl{background:#E1F5EE;border-radius:8px 8px 0 0;padding:.5rem 1rem;display:flex;align-items:center;gap:6px;}
+.col-de{background:#E6F1FB;border-radius:8px 8px 0 0;padding:.5rem 1rem;display:flex;align-items:center;gap:6px;}
+.col-nl span,.col-de span{font-size:13px;font-weight:500;}
+.col-nl span{color:#0F6E56;}
+.col-de span{color:#185FA5;}
+
+/* Section rows */
+.section-row{display:grid;grid-template-columns:180px 1fr 1fr;gap:0;border-top:0.5px solid var(--color-border-tertiary);}
+.section-row:last-child{border-bottom:0.5px solid var(--color-border-tertiary);}
+.row-label{padding:1rem .5rem 1rem 0;display:flex;flex-direction:column;justify-content:flex-start;gap:4px;}
+.row-icon{font-size:18px;}
+.row-title{font-size:12px;font-weight:500;color:var(--color-text-primary);}
+.row-sub{font-size:10px;color:var(--color-text-secondary);line-height:1.4;}
+.cell-nl{background:rgba(29,158,117,.04);padding:.9rem 1rem;border-left:0.5px solid var(--color-border-tertiary);}
+.cell-de{background:rgba(59,139,212,.04);padding:.9rem 1rem;border-left:0.5px solid var(--color-border-tertiary);}
+
+.stat-num{font-size:22px;font-weight:500;line-height:1;}
+.stat-nl{color:#1D9E75;}
+.stat-de{color:#185FA5;}
+.stat-desc{font-size:11px;color:var(--color-text-secondary);margin-top:3px;line-height:1.4;}
+.stat-block{margin-bottom:.6rem;}
+
+.tag{font-size:10px;padding:2px 7px;border-radius:20px;display:inline-block;margin:.15rem .1rem .15rem 0;}
+.tag-g{background:#EAF3DE;color:#3B6D11;}
+.tag-b{background:#E6F1FB;color:#185FA5;}
+.tag-a{background:#FAEEDA;color:#854F0B;}
+.tag-t{background:#E1F5EE;color:#0F6E56;}
+.tag-r{background:#FAECE7;color:#993C1D;}
+
+.bar-wrap{margin:.4rem 0 .2rem;}
+.bar-row{display:flex;align-items:center;gap:6px;margin-bottom:4px;}
+.bar-label{font-size:10px;color:var(--color-text-secondary);width:110px;flex-shrink:0;}
+.bar-track{flex:1;height:10px;background:var(--color-background-secondary);border-radius:5px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:5px;}
+.bar-val{font-size:10px;font-weight:500;width:36px;text-align:right;flex-shrink:0;}
+
+.note{font-size:11px;color:var(--color-text-secondary);line-height:1.5;margin-top:.5rem;padding:.4rem .6rem;background:var(--color-background-secondary);border-radius:6px;}
+.note strong{color:var(--color-text-primary);font-weight:500;}
+
+/* Cboost banner */
+.cboost-banner{margin-top:1.25rem;background:linear-gradient(0deg,rgba(29,158,117,.07),rgba(59,139,212,.07));border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;display:grid;grid-template-columns:auto 1fr;gap:.75rem;align-items:flex-start;}
+.cboost-icon{font-size:22px;margin-top:2px;}
+.cboost-title{font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px;}
+.cboost-body{font-size:12px;color:var(--color-text-secondary);line-height:1.6;}
+
+/* Score summary */
+.score-row{display:grid;grid-template-columns:180px 1fr 1fr;gap:0;margin-bottom:1.25rem;}
+.score-cell{padding:.6rem 1rem;}
+.score-cell:first-child{padding-left:0;}
+.score-label{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-tertiary);margin-bottom:.25rem;}
+.score-pills{display:flex;flex-wrap:wrap;gap:4px;}
+.score-pill{font-size:10px;padding:3px 8px;border-radius:20px;font-weight:500;}
+.pill-lead{background:#9FE1CB;color:#04342C;}
+.pill-target{background:#B5D4F4;color:#042C53;}
+.pill-both{background:#D3D1C7;color:#2C2C2A;}
+</style>
+
+<div class="page">
+
+<!-- Header -->
+<div class="top-bar">
+  <div>
+    <h1>🌱 Sustainability analysis — Netherlands vs Germany</h1>
+    <p style="margin-top:3px;">Market entry ecological comparison · 4 dimensions · Cboost strategic context</p>
+  </div>
+  <span class="cboost-tag">Cboost market entry</span>
+</div>
+
+<!-- Who leads summary -->
+<div class="score-row">
+  <div class="score-cell" style="padding-left:0;">
+    <div class="score-label">dimension leads</div>
+  </div>
+  <div class="score-cell" style="background:rgba(29,158,117,.06);border-radius:8px 0 0 8px;">
+    <div class="score-label" style="color:#0F6E56;">🇳🇱 Netherlands leads</div>
+    <div class="score-pills">
+      <span class="score-pill pill-lead">Waste &amp; circular economy</span>
+      <span class="score-pill pill-lead">AI &amp; green ICT rules</span>
+      <span class="score-pill pill-lead">Current recycling rate</span>
+    </div>
+  </div>
+  <div class="score-cell" style="background:rgba(59,139,212,.06);border-radius:0 8px 8px 0;">
+    <div class="score-label" style="color:#185FA5;">🇩🇪 Germany leads</div>
+    <div class="score-pills">
+      <span class="score-pill pill-target">Overall emission reduction</span>
+      <span class="score-pill pill-target">Long-term climate structure</span>
+      <span class="score-pill pill-target">Industry transformation fund</span>
+    </div>
+  </div>
+</div>
+
+<!-- Column headers -->
+<div class="country-grid">
+  <div class="col-label">Category</div>
+  <div class="col-nl"><span>🇳🇱 Netherlands</span></div>
+  <div class="col-de"><span>🇩🇪 Germany</span></div>
+</div>
+
+<!-- ROW 1: Climate action -->
+<div class="section-row">
+  <div class="row-label">
+    <span class="row-icon">🌡️</span>
+    <div class="row-title">Climate action</div>
+    <div class="row-sub">GHG emissions &amp; targets</div>
+  </div>
+  <div class="cell-nl">
+    <div class="stat-block">
+      <div class="stat-num stat-nl">−31%</div>
+      <div class="stat-desc">Emissions vs 1990 (2022)</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num stat-nl">8.6t</div>
+      <div class="stat-desc">CO₂ per capita (2022, falling)</div>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar-row">
+        <span class="bar-label">Reduction since 1990</span>
+        <div class="bar-track"><div class="bar-fill" style="width:31%;background:#1D9E75;"></div></div>
+        <span class="bar-val" style="color:#1D9E75;">31%</span>
+      </div>
+    </div>
+    <span class="tag tag-t">Faster short-term cuts</span>
+    <span class="tag tag-t">Per capita declining</span>
+  </div>
+  <div class="cell-de">
+    <div class="stat-block">
+      <div class="stat-num stat-de">−40%</div>
+      <div class="stat-desc">Emissions vs 1990 (2022)</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-num stat-de">2045</div>
+      <div class="stat-desc">Climate neutrality target</div>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar-row">
+        <span class="bar-label">Reduction since 1990</span>
+        <div class="bar-track"><div class="bar-fill" style="width:40%;background:#3B8BD4;"></div></div>
+        <span class="bar-val" style="color:#3B8BD4;">40%</span>
+      </div>
+    </div>
+    <span class="tag tag-b">Larger total reduction</span>
+    <span class="tag tag-a">Fossil reliance: transport &amp; heating</span>
+  </div>
+</div>
+
+<!-- ROW 2: Energy systems -->
+<div class="section-row">
+  <div class="row-label">
+    <span class="row-icon">⚡</span>
+    <div class="row-title">Energy systems</div>
+    <div class="row-sub">Renewable transition strategy</div>
+  </div>
+  <div class="cell-nl">
+    <div class="stat-block">
+      <div class="stat-num stat-nl">+2</div>
+      <div class="stat-desc">New nuclear plants planned to replace all fossil fuel power</div>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar-row">
+        <span class="bar-label">Nuclear investment</span>
+        <div class="bar-track"><div class="bar-fill" style="width:88%;background:#1D9E75;"></div></div>
+        <span class="bar-val" style="color:#1D9E75;">High</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">Renewables push</span>
+        <div class="bar-track"><div class="bar-fill" style="width:65%;background:#1D9E75;"></div></div>
+        <span class="bar-val" style="color:#1D9E75;">Med</span>
+      </div>
+    </div>
+    <span class="tag tag-t">Nuclear bridge strategy</span>
+    <span class="tag tag-g">Full fossil phase-out goal</span>
+    <div class="note">Catching up on renewables, but using nuclear to eliminate higher-polluting fossil fuels sooner.</div>
+  </div>
+  <div class="cell-de">
+    <div class="stat-block">
+      <div class="stat-num stat-de">0</div>
+      <div class="stat-desc">Nuclear plants remaining — fully phased out</div>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar-row">
+        <span class="bar-label">Nuclear investment</span>
+        <div class="bar-track"><div class="bar-fill" style="width:3%;background:#3B8BD4;"></div></div>
+        <span class="bar-val" style="color:#3B8BD4;">None</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">Renewables push</span>
+        <div class="bar-track"><div class="bar-fill" style="width:95%;background:#3B8BD4;"></div></div>
+        <span class="bar-val" style="color:#3B8BD4;">High</span>
+      </div>
+    </div>
+    <span class="tag tag-b">100% renewable ambition</span>
+    <span class="tag tag-r">Short-term coal gap</span>
+    <div class="note">All new capacity is renewable, but nuclear closure created a <strong>transitional coal dependency</strong>, increasing near-term pollution.</div>
+  </div>
+</div>
+
+<!-- ROW 3: Digital / Green IT -->
+<div class="section-row">
+  <div class="row-label">
+    <span class="row-icon">💻</span>
+    <div class="row-title">Digital infrastructure</div>
+    <div class="row-sub">Green IT readiness</div>
+  </div>
+  <div class="cell-nl">
+    <div class="stat-block">
+      <div class="stat-num stat-nl" style="font-size:15px;margin-bottom:3px;">AI front-runner</div>
+      <div class="stat-desc">Regulations already documented for AI in the workplace</div>
+    </div>
+    <span class="tag tag-t">AI governance framework</span>
+    <span class="tag tag-g">Green ICT regulations</span>
+    <span class="tag tag-t">Digitalisation → other sectors</span>
+    <div class="note" style="margin-top:.5rem;">Strong <strong>regulatory foundation</strong> — clean baseline makes it easier for sustainable digital innovations to enter the market.</div>
+  </div>
+  <div class="cell-de">
+    <div class="stat-block">
+      <div class="stat-num stat-de" style="font-size:15px;margin-bottom:3px;">Funding-led</div>
+      <div class="stat-desc">Climate &amp; Transformation Fund finances digital modernisation across sectors</div>
+    </div>
+    <span class="tag tag-b">Industry transformation fund</span>
+    <span class="tag tag-b">Multi-sector coverage</span>
+    <span class="tag tag-a">Regulatory compliance pressure</span>
+    <div class="note" style="margin-top:.5rem;"><strong>Financial incentives</strong> push companies to modernise — creates demand for energy-efficient technologies and smart solutions.</div>
+  </div>
+</div>
+
+<!-- ROW 4: Waste management -->
+<div class="section-row">
+  <div class="row-label">
+    <span class="row-icon">♻️</span>
+    <div class="row-title">Waste management</div>
+    <div class="row-sub">Circular economy &amp; recycling</div>
+  </div>
+  <div class="cell-nl">
+    <div class="stat-block">
+      <div class="stat-num stat-nl">58%</div>
+      <div class="stat-desc">Recycling rate (2022) — 9% above EU average</div>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar-row">
+        <span class="bar-label">Recycling rate</span>
+        <div class="bar-track"><div class="bar-fill" style="width:58%;background:#1D9E75;"></div></div>
+        <span class="bar-val" style="color:#1D9E75;">58%</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">EU avg recycling</span>
+        <div class="bar-track"><div class="bar-fill" style="width:49%;background:#C0DD97;"></div></div>
+        <span class="bar-val" style="color:#639922;">49%</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">Circular material use</span>
+        <div class="bar-track"><div class="bar-fill" style="width:30.6%;background:#1D9E75;"></div></div>
+        <span class="bar-val" style="color:#1D9E75;">30.6%</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">EU avg circular use</span>
+        <div class="bar-track"><div class="bar-fill" style="width:11.8%;background:#C0DD97;"></div></div>
+        <span class="bar-val" style="color:#639922;">11.8%</span>
+      </div>
+    </div>
+    <span class="tag tag-t">🏆 #1 circular economy in EU</span>
+    <span class="tag tag-g">2035 landfill targets on track</span>
+  </div>
+  <div class="cell-de">
+    <div class="stat-block">
+      <div class="stat-num stat-de">2045</div>
+      <div class="stat-desc">Target: halve raw material consumption (NCES)</div>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar-row">
+        <span class="bar-label">Raw material target</span>
+        <div class="bar-track"><div class="bar-fill" style="width:50%;background:#3B8BD4;"></div></div>
+        <span class="bar-val" style="color:#3B8BD4;">−50%</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">Recycled material share</span>
+        <div class="bar-track"><div class="bar-fill" style="width:70%;background:#3B8BD4;"></div></div>
+        <span class="bar-val" style="color:#3B8BD4;">×2</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">Municipal waste target</span>
+        <div class="bar-track"><div class="bar-fill" style="width:10%;background:#3B8BD4;"></div></div>
+        <span class="bar-val" style="color:#3B8BD4;">−10%</span>
+      </div>
+    </div>
+    <span class="tag tag-b">NCES national strategy</span>
+    <span class="tag tag-a">Supply chain &amp; scarcity driver</span>
+  </div>
+</div>
+
+<!-- Cboost relevance banner -->
+<div class="cboost-banner">
+  <div class="cboost-icon">🔩</div>
+  <div>
+    <div class="cboost-title">Cboost strategic relevance</div>
+    <div class="cboost-body">
+      Cboost's elevator sensors extend equipment lifespan, directly reducing the need to manufacture new elevators and escalators — which consume significant raw materials. This aligns strongly with <strong>Germany's NCES goal to halve raw material consumption by 2045</strong>, making Cboost's proposition a natural fit for the German regulatory and industrial sustainability agenda. In the Netherlands, the combination of a <strong>strong circular economy baseline (30.6% circular material use, #1 in EU)</strong> and an established AI regulatory framework creates a receptive market for data-driven, sustainability-first solutions. Both countries reward companies that demonstrably reduce resource consumption — which is precisely what predictive maintenance technology does.
+    </div>
+  </div>
+</div>
+
+</div>
